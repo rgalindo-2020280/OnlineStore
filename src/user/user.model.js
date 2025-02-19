@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { encrypt } from '../../utils/encrypt.js'
 
 const modelSchema = new Schema({
         name: {
@@ -44,4 +45,30 @@ const modelSchema = new Schema({
     }
 )
 
-export default model('User', modelSchema)
+const User = model("User", modelSchema)
+
+const createAdmin = async () => {
+    try {
+        const adminExists = await User.findOne({ role: "ADMIN" })
+        if (!adminExists) {
+            const hashedPassword = await encrypt("W2Axa2-28")
+            const admin = new User({
+                name: "Ricardo",
+                surname: "Galindo",
+                username: "rgalindo",
+                email: "rgalindo@gmail.com",
+                password: hashedPassword,
+                phone: "52356841",
+                role: "ADMIN",
+                status: "true",
+            })
+            await admin.save()
+            console.log("Default admin created")
+        }
+    } catch (error) {
+        console.error("Error creating default admin:", error)
+    }
+}
+createAdmin()
+
+export default User

@@ -107,45 +107,32 @@ export const deleteCategory = async (req, res) => {
         const { id } = req.params
         const category = await Category.findById(id)
         if (!category) {
-                return res.status(404).send(
-                {
-                    success: false,
-                    message: 'Category not found'
-                }
-            )
+            return res.status(404).send({
+                success: false,
+                message: 'Category not found'
+            })
         }
-        let defaultCategory = await Category.findOne(
-            { name: 'Uncategorized' }
-        )
-        if (!defaultCategory) {
-            defaultCategory = new Category(
-                { 
-                    name: 'Uncategorized',
-                    description: 'Default category'
-                }
-            )
-            await defaultCategory.save();
+        const generalCategory = await Category.findOne({ name: 'General' })
+        if (!generalCategory) {
+            return res.status(500).send({
+                success: false,
+                message: 'General category is missing, please create it first'
+            })
         }
-        const productsInCategory = await Product.find({ categoryId: id })
-        if (productsInCategory.length > 0) {
-            await Product.updateMany(
-                { categoryId: id },
-                { categoryId: defaultCategory._id }
-            )
-        }
-        await Category.findByIdAndDelete(id);
+        await Product.updateMany({ categoryId: id }, { categoryId: generalCategory._id })
+        await Category.findByIdAndDelete(id)
+
         res.send({
             success: true,
-            message: 'Category deleted successfully',
-            productsReassigned: productsInCategory.length > 0
+            message: 'Category deleted successfully, products reassigned to General'
         })
+
     } catch (error) {
-        console.error('Error deleting category:', error);
-        res.status(500).send(
-            {
-                 success: false,
-                 message: 'General error' 
-            }
-        )
+        console.error('Error deleting category:', error)
+        res.status(500).send({
+            success: false,
+            message: 'General error',
+            error: error.message
+        })
     }
 }
