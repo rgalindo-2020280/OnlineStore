@@ -1,4 +1,5 @@
 import User from '../user/user.model.js'
+import Carrito from '../carrito/carrito.model.js'
 import { checkPassword, encrypt } from '../../utils/encrypt.js'
 import { generateJwt} from '../../utils/jwt.js'
 //test
@@ -8,19 +9,32 @@ export const test = (req, res)=>{
 }
 
 //Register
-export const register = async(req, res)=>{
-    try{
+export const register = async (req, res) => {
+    try {
         let data = req.body
         let user = new User(data)
         user.password = await encrypt(user.password)
         user.role = 'CLIENT'
         await user.save()
-        return res.send({message: `Registered successfully, can be logged with username: ${user.username}`})
-    }catch(err){
+        const newCarrito = new Carrito({
+            userId: user._id,
+            products: [],
+            totalAmount: 0
+        })
+        await newCarrito.save()
+        return res.send({
+            message: `Registered successfully, can be logged with username: ${user.username}`,
+            user
+        })
+    } catch (err) {
         console.error(err)
-        return res.status(500).send({message: 'General error with registering user', err})
+        return res.status(500).send({
+            message: 'General error with registering user',
+            err
+        })
     }
 }
+
 
 
 //Login
