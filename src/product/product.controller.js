@@ -66,8 +66,6 @@ export const updateProduct = async (req, res) => {
                 message: 'No data provided for update'
             })
         }
-
-        // Verificar si el nombre ya existe en otro producto
         if (req.body.name) {
             const existingProduct = await Product.findOne({ name: req.body.name, _id: { $ne: id } })
             if (existingProduct) {
@@ -77,8 +75,6 @@ export const updateProduct = async (req, res) => {
                 })
             }
         }
-
-        // 🔹 Manejo de actualización de categoría
         if (req.body.categoryId && req.body.categoryId !== product.categoryId.toString()) {
             const oldCategory = await Category.findById(product.categoryId)
             const newCategory = await Category.findById(req.body.categoryId)
@@ -89,34 +85,25 @@ export const updateProduct = async (req, res) => {
                     message: 'New category does not exist'
                 })
             }
-
-            // 🔹 Eliminar el producto de la categoría anterior
             if (oldCategory) {
                 oldCategory.products = oldCategory.products.filter(prodId => prodId.toString() !== id)
                 await oldCategory.save()
             }
-
-            // 🔹 Agregar el producto a la nueva categoría
             newCategory.products.push(product._id)
             await newCategory.save()
         }
-
-        // 🔹 Actualizar solo los campos permitidos
         const fieldsToUpdate = ['name', 'description', 'price', 'stock', 'categoryId']
         fieldsToUpdate.forEach(key => {
             if (req.body[key] !== undefined) {
                 product[key] = req.body[key]
             }
         })
-
         await product.save()
-
         res.send({
             success: true,
             message: 'Product updated successfully',
             product
         })
-
     } catch (error) {
         console.error('Error updating product:', error)
         res.status(500).send({
@@ -126,9 +113,6 @@ export const updateProduct = async (req, res) => {
         })
     }
 }
-
-
-
 
 export const getInventoryReport = async (req, res) => {
     try {
