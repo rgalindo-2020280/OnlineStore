@@ -55,3 +55,70 @@ export const addProductCarrito = async (req, res) => {
     }
 }
 
+export const getCarrito = async (req, res) => {
+    try {
+        const userId = req.user.uid
+        const carrito = await Carrito.findOne({ userId }).populate('products.productId')
+        if (!carrito) {
+            return res.status(404).send({
+                success: false,
+                message: 'Carrito not found'
+            })
+        }
+        res.send({
+            success: true,
+            message: 'Carrito retrieved successfully',
+            carrito
+        })
+    } catch (error) {
+        console.error('Error retrieving carrito:', error)
+        res.status(500).send({
+            success: false,
+            message: 'General error retrieving carrito',
+            error: error.message
+        })
+    }
+}
+
+export const removeProductCarrito = async (req, res) => {
+    try {
+        const { productId } = req.body
+        const userId = req.user.uid
+        if (!productId) {
+            return res.status(400).send({
+                success: false,
+                message: 'Product ID is required'
+            })
+        }
+        const carrito = await Carrito.findOne({ userId: userId })
+        if (!carrito) {
+            return res.status(404).send({
+                success: false,
+                message: 'Cart not found'
+            })
+        }
+        const productIndex = carrito.products.findIndex(p => p.productId.toString() === productId)
+
+        if (productIndex === -1) {
+            return res.status(404).send({
+                success: false,
+                message: 'Product not found in cart'
+            })
+        }
+        carrito.products.splice(productIndex, 1)
+        carrito.totalAmount = carrito.products.reduce((acc, product) => acc + product.subtotal, 0)
+        await carrito.save()
+        res.send({
+            success: true,
+            message: 'Product removed from cart successfully',
+            carrito
+        })
+    } catch (error) {
+        console.error('Error removing product from cart:', error)
+        res.status(500).send({
+            success: false,
+            message: 'Error removing product from cart',
+            error: error.message
+        })
+    }
+}
