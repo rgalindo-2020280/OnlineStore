@@ -1,9 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose"
+//import Facture from './facture.model.js'
 
 const carritoSchema = new Schema({
         userId: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'User', 
             required: [true, 'User ID is required']
         },
         products: [{
@@ -29,10 +30,6 @@ const carritoSchema = new Schema({
         totalAmount: {
             type: Number,
             required: true
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now
         }
     }
 )
@@ -45,5 +42,18 @@ carritoSchema.pre('save', function (next) {
     this.totalAmount = this.products.reduce((acc, product) => acc + product.subtotal, 0)
     next()
 })
+
+carritoSchema.methods.completePurchase = async function() {
+    const facture = new Facture({
+        userId: this.userId,
+        products: this.products,
+        totalAmount: this.totalAmount
+    })
+    await facture.save()
+    this.products = []
+    this.totalAmount = 0
+    await this.save()  
+    return facture
+}
 
 export default model('Carrito', carritoSchema)
