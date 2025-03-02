@@ -1,15 +1,29 @@
 import { Router } from 'express'
-import { createFacture } from './facture.controller.js'
+import { addFacture, getUserFactures, updateFacture } from './facture.controller.js'
 import { validateJwt } from '../../middlewares/validate.jwt.js'
-import { isClient } from '../../middlewares/validate.jwt.js'
+import { isClient, isAdmin } from '../../middlewares/validate.jwt.js'
 
 const api = Router()
 
 api.post(
-    '/facture',
+    '/addFacture',
     [validateJwt],
-    [isClient],
-    createFacture
+    [isAdmin],
+    addFacture
+)
+
+api.put(
+    '/:id',
+    [validateJwt],
+    [isAdmin],
+    updateFacture
+)
+
+api.get(
+    '/getUserFacture',
+    [validateJwt],
+    [isAdmin],
+    getUserFactures
 )
 
 export default api
