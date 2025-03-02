@@ -26,10 +26,15 @@ export const addProductCarrito = async (req, res) => {
                 message: 'Product not found'
             })
         }
+        if (product.stock < quantity) {
+            return res.status(400).send({
+                success: false,
+                message: `Not enough stock for product: ${product.name}. Available stock: ${product.stock}`
+            })
+        }
         const existingProduct = carrito.products.find(p => p.productId.toString() === productId)
-
         if (existingProduct) {
-            existingProduct.quantity = quantity  
+            existingProduct.quantity += quantity
             existingProduct.subtotal = existingProduct.quantity * product.price
         } else {
             carrito.products.push({
@@ -47,6 +52,7 @@ export const addProductCarrito = async (req, res) => {
             carrito
         })
     } catch (error) {
+        console.error('Error adding product to cart:', error)
         res.status(500).send({
             success: false,
             message: 'General error',
@@ -54,6 +60,7 @@ export const addProductCarrito = async (req, res) => {
         })
     }
 }
+
 
 export const getCarrito = async (req, res) => {
     try {
