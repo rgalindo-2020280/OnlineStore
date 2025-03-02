@@ -9,6 +9,7 @@ import userRoutes from '../src/user/user.routes.js'
 import productRoutes from '../src/product/product.routes.js'
 import categoryRoutes from '../src/category/category.routes.js'
 import carritoRoutes from '../src/carrito/carrito.routes.js'
+import factureRoutes from '../src/facture/facture.routes.js'
 
 const configs = (app)=>{
     app.use(express.json())
@@ -24,6 +25,7 @@ const routes = (app)=>{
     app.use('/v1/product', productRoutes)
     app.use('/v1/category', categoryRoutes)
     app.use('/v1/carrito', carritoRoutes)
+    app.use('/v1/facture', factureRoutes)
 }
 
 export const initServer = async()=>{
