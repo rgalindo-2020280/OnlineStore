@@ -1,5 +1,6 @@
 import Product from './product.model.js'
 import Category from '../category/category.model.js'
+import Facture from '../facture/facture.model.js'
 
 export const addProduct = async (req, res) => {
     try {
@@ -190,3 +191,51 @@ export const deleteProduct = async (req, res) => {
         )
     }
 }
+
+export const getTopProducts = async (req, res) => {
+    try {
+        const factures = await Facture.find()
+            .select('products')
+            .populate('products.productId', 'name price')
+            .exec()
+        const productCount = {}
+        factures.forEach(facture => {
+            facture.products.forEach(item => {
+                const productId = item.productId._id.toString();
+                if (!productCount[productId]) {
+                    productCount[productId] = {
+                        productId: productId,
+                        name: item.productId.name,
+                        price: item.productId.price,
+                        totalSold: 0
+                    }
+                }
+                productCount[productId].totalSold += item.quantity;
+            })
+        })
+        const topSelling = Object.values(productCount)
+            .sort((a, b) => b.totalSold - a.totalSold)
+            .slice(0, 10)
+
+        if (topSelling.length === 0) {
+            return res.status(404).send({
+                success: false,
+                message: 'No top selling products found'
+            })
+        }
+
+        res.send({
+            success: true,
+            message: 'Top selling products retrieved successfully',
+            products: topSelling
+        })
+    } catch (error) {
+        console.error('Error retrieving top selling products:', error)
+        res.status(500).send({
+            success: false,
+            message: 'Error retrieving top selling products'
+        })
+    }
+}
+
+
