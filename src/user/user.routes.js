@@ -8,7 +8,8 @@ import {
     deleteUser,
     updateUserProfileByAdmin,
     updatePassword,
-    addUser
+    addUser,
+    getPurchaseHistorial
 } from './user.controller.js'
 import { validateJwt} from '../../middlewares/validate.jwt.js'
 import { isAdmin, isClient } from '../../middlewares/validate.jwt.js'
@@ -79,6 +80,13 @@ api.delete(
     [validateJwt],
     [isAdmin],
     deleteUser
+)
+
+api.get(
+    '/myHistorial',
+    [validateJwt],
+    [isClient],
+    getPurchaseHistorial
 )
 
 export default api
