@@ -1,6 +1,7 @@
 import User from './user.model.js'
 import argon2 from 'argon2'
 import mongoose from 'mongoose'
+import Facture from '../facture/facture.model.js'
 import { checkPassword, encrypt } from '../../utils/encrypt.js'
 // Opciones del CLiente
 export const getUserProfile = async (req, res) => {
@@ -153,6 +154,40 @@ export const updatePassword = async (req, res) => {
         )
     }
 }
+
+export const getPurchaseHistorial = async (req, res) => {
+    try {
+        const userId = req.user.uid
+        const factures = await Facture.find({ userId })
+            .select('products totalAmount status createdAt')
+            .populate('products.productId', 'name price')
+            .sort({ createdAt: -1 })
+
+        if (!factures || factures.length === 0) {
+            return res.status(404).send({
+                success: false,
+                message: 'No purchase history found for this user'
+            })
+        }
+
+        res.send({
+                success: true,
+                message: 'Purchase history retrieved successfully',
+                factures
+            }
+        )
+    } catch (error) {
+        console.error('Error retrieving purchase history:', error)
+        res.status(500).send({
+                success: false,
+                message: 'Error retrieving purchase history'
+            }
+        )
+    }
+}
+
+
+
 
 // Opciones del ADMIN
 
