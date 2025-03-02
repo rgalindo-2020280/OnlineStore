@@ -17,17 +17,20 @@ export const register = async (req, res) => {
         user.role = 'CLIENT'
         await user.save()
         const newCarrito = new Carrito({
-            userId: user._id,
+            userId: user._id,  
             products: [],
             totalAmount: 0
         })
         await newCarrito.save()
+        user.carrito = newCarrito._id
+        await user.save()
         return res.send({
             message: `Registered successfully, can be logged with username: ${user.username}`,
-            user
+            user,
+            carritoId: newCarrito._id
         })
     } catch (err) {
-        console.error(err)
+        console.error(err);
         return res.status(500).send({
             message: 'General error with registering user',
             err
