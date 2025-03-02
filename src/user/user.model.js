@@ -38,6 +38,10 @@ const modelSchema = new Schema({
             enum: ["ADMIN", "CLIENT"],
             default: 'CLIENT'
         },
+        carrito: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Carrito'
+        }],
         status: {
             type: Boolean,
             default: true
