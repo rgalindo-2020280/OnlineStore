@@ -1,6 +1,7 @@
 import { body } from "express-validator" 
 import { validateErrorWithoutImg } from "./validate.error.js"
 import { existUsername, existEmail, objectIdValid } from "./db.validators.js"
+import Product from '../src/product/product.model.js'
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -149,4 +150,45 @@ export const updatePasswordValidator = [
     body('oldPassword', 'Old password cannot be empty')
         .notEmpty(),
     validateErrorWithoutImg 
+]
+
+export const addProductCarritoValidator = [
+    body('productId', 'Product ID is required')
+        .notEmpty()
+        .isMongoId().withMessage('Invalid Product ID'),
+
+    body('quantity', 'Quantity is required')
+        .notEmpty()
+        .isInt({ min: 1 })
+        .custom(async (quantity, { req }) => {
+            const product = await Product.findById(req.body.productId)
+            if (!product) {
+                throw new Error('Product not found')
+            }
+            if (product.stock < quantity) {
+                throw new Error(`Not enough stock for product: ${product.name}. Available stock: ${product.stock}`)
+            }
+            return true
+        }),
+    validateErrorWithoutImg 
+]
+
+export const addFactureValidator = [
+    body('userId')
+        .notEmpty().withMessage('User ID is required')
+        .isMongoId().withMessage('Invalid User ID')
+        .custom(async (userId) => {
+            const carrito = await Carrito.findOne({ userId })
+            if (!carrito || carrito.products.length === 0) {
+                throw new Error('Cart is empty, cannot create a facture')
+            }
+            for (const item of carrito.products) {
+                const product = await Product.findById(item.productId)
+                if (product && product.stock < item.quantity) {
+                    throw new Error(`Not enough stock for product: ${product.name}. Available stock: ${product.stock}`)
+                }
+            }
+            return true
+        }),
+    validateErrorWithoutImg
 ]
