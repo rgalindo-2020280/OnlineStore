@@ -7,6 +7,7 @@ import {
 
 import { validateJwt } from '../../middlewares/validate.jwt.js'
 import { isClient } from '../../middlewares/validate.jwt.js'
+import { addProductCarritoValidator } from '../../helpers/validator.js'
 
 const api = Router()
 
@@ -14,6 +15,7 @@ api.post(
     '/addCarrito',
     [validateJwt], 
     [isClient],   
+    [addProductCarritoValidator],
     addProductCarrito
 )
 
