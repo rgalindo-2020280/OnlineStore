@@ -238,4 +238,27 @@ export const getTopProducts = async (req, res) => {
     }
 }
 
+export const getProductByName = async (req, res) => {
+    try {
+        const { name } = req.body
+        const product = await Product.findOne({ name: new RegExp('^' + name + '$', 'i') })
 
+        if (!product) {
+            return res.status(404).send({
+                success: false,
+                message: `Product with name "${name}" not found`
+            })
+        }
+
+        res.send({
+            success: true,
+            product
+        })
+    } catch (error) {
+        console.error('Error fetching product by name:', error)
+        res.status(500).send({
+            success: false,
+            message: 'Error fetching product by name'
+        })
+    }
+}

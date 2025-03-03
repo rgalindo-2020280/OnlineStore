@@ -4,6 +4,7 @@ import {
     deleteProduct,
     getInventoryReport,
     getOutOfStockProducts,
+    getProductByName,
     getTopProducts,
     updateProduct
 } from './product.controller.js'
@@ -54,6 +55,12 @@ api.delete(
     [validateJwt],
     [isAdmin],
     deleteProduct
+)
+
+api.get(
+    '/getByName',
+    [validateJwt],
+    getProductByName
 )
 
 export default api
