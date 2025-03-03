@@ -4,13 +4,7 @@ import Carrito from '../carrito/carrito.model.js'
 
 export const addFacture = async (req, res) => {
     try {
-        const { userId } = req.body
-        if (!userId) {
-            return res.status(400).send({
-                success: false,
-                message: 'User ID is required'
-            })
-        }
+        const userId = req.user.uid
         const carrito = await Carrito.findOne({ userId })
         if (!carrito || carrito.products.length === 0) {
             return res.status(400).send({
@@ -60,6 +54,7 @@ export const addFacture = async (req, res) => {
         })
     }
 }
+
 
 export const updateFacture = async (req, res) => {
     try {
