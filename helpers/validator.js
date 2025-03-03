@@ -2,6 +2,7 @@ import { body } from "express-validator"
 import { validateErrorWithoutImg } from "./validate.error.js"
 import { existUsername, existEmail, objectIdValid } from "./db.validators.js"
 import Product from '../src/product/product.model.js'
+import User from '../src/user/user.model.js'
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
@@ -190,5 +191,34 @@ export const addFactureValidator = [
             }
             return true
         }),
+    validateErrorWithoutImg
+]
+
+export const addUserValidator = [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('surname').notEmpty().withMessage('Surname is required'),
+    body('username').notEmpty().withMessage('Username is required')
+        .custom(async (username) => {
+            const existingUsername = await User.findOne({ username })
+            if (existingUsername) {
+                throw new Error('Username is already taken')
+            }
+            return true
+        }),
+    body('email').notEmpty().withMessage('Email is required')
+        .isEmail().withMessage('Invalid email format')
+        .custom(async (email) => {
+            const existingEmail = await User.findOne({ email })
+            if (existingEmail) {
+                throw new Error('Email is already taken')
+            }
+            return true
+        }),
+    body('password').notEmpty().withMessage('Password is required')
+        .isStrongPassword().withMessage('Password must be strong'),
+    body('phone').notEmpty().withMessage('Phone is required')
+        .isMobilePhone().withMessage('Invalid phone number format'),
+    body('role').notEmpty().withMessage('Role is required')
+        .isIn(['ADMIN', 'CLIENT']).withMessage('Invalid role'),
     validateErrorWithoutImg
 ]
