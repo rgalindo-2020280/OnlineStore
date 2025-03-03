@@ -86,12 +86,12 @@
 							"urlencoded": [
 								{
 									"key": "userLoggin",
-									"value": "dhernandez",
+									"value": "rgalindo",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Pibe256-",
+									"value": "W2Axa2-28",
 									"type": "text"
 								}
 							]
@@ -173,9 +173,8 @@
 								},
 								{
 									"key": "email",
-									"value": "amorgan@kinal.edu.gt",
-									"type": "text",
-									"disabled": true
+									"value": "areyes@kinal.edu.gt",
+									"type": "text"
 								},
 								{
 									"key": "phone",
@@ -254,12 +253,12 @@
 							"urlencoded": [
 								{
 									"key": "oldPassword",
-									"value": "Pibe256-",
+									"value": "Pibe286-",
 									"type": "text"
 								},
 								{
 									"key": "newPassword",
-									"value": "Pibe286-",
+									"value": "Pibe256-",
 									"type": "text"
 								}
 							]
@@ -276,6 +275,33 @@
 								"user",
 								"password",
 								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetHistorial",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3700/v1/user/myHistorial",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"user",
+								"myHistorial"
 							]
 						}
 					},
@@ -334,7 +360,7 @@
 								},
 								{
 									"key": "uid",
-									"value": "67ae69790f678f11d9e68169",
+									"value": "67c2814b30fc4455ef14cac2",
 									"type": "text"
 								}
 							]
@@ -412,7 +438,7 @@
 								},
 								{
 									"key": "username",
-									"value": "astrovic",
+									"value": "astrovics",
 									"type": "text"
 								},
 								{
@@ -428,7 +454,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3700/v1/user/67ad35333424fcc061a2e69b",
+							"raw": "http://localhost:3700/v1/user/67b25d063b372421c538696e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -437,7 +463,7 @@
 							"path": [
 								"v1",
 								"user",
-								"67ad35333424fcc061a2e69b"
+								"67b25d063b372421c538696e"
 							]
 						}
 					},
@@ -469,12 +495,12 @@
 								},
 								{
 									"key": "username",
-									"value": "jsandino",
+									"value": "jsandina",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "jsandino@gmail.com",
+									"value": "jsandina@gmail.com",
 									"type": "text"
 								},
 								{
@@ -531,7 +557,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Perifericos",
+									"value": "Perifericos2",
 									"type": "text"
 								},
 								{
@@ -584,7 +610,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3700/v1/category/67aeb6953e8f3f7a198c4207",
+							"raw": "http://localhost:3700/v1/category/67b565659147b09e6e7c0974",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -593,7 +619,7 @@
 							"path": [
 								"v1",
 								"category",
-								"67aeb6953e8f3f7a198c4207"
+								"67b565659147b09e6e7c0974"
 							]
 						}
 					},
@@ -638,7 +664,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3700/v1/category/67ad6041c10b72218b3b9b2d",
+							"raw": "http://localhost:3700/v1/category/67aeb6953e8f3f7a198c4207",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -647,7 +673,7 @@
 							"path": [
 								"v1",
 								"category",
-								"67ad6041c10b72218b3b9b2d"
+								"67aeb6953e8f3f7a198c4207"
 							]
 						}
 					},
@@ -674,7 +700,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Teclado RedDragon K550",
+									"value": "Teclado RedDragon K550212222",
 									"type": "text"
 								},
 								{
@@ -694,7 +720,7 @@
 								},
 								{
 									"key": "categoryId",
-									"value": "67afe41f9c246d3bcd06070a",
+									"value": "67c1bc0de9564f5eaa1132f7",
 									"type": "text"
 								}
 							]
@@ -731,7 +757,7 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Teclado RedDragon K5501",
+									"value": "Teclado RedDragon K55012dsa2ds2ad",
 									"type": "text"
 								},
 								{
@@ -751,13 +777,13 @@
 								},
 								{
 									"key": "categoryId",
-									"value": "67af499ff241d126b48a0f3b",
+									"value": "67b56162b77e51b75291f30b",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3700/v1/product/67aeb90dfdfa6e832fd7f123",
+							"raw": "http://localhost:3700/v1/product/67b56052c735af2aca128d5c",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -766,7 +792,7 @@
 							"path": [
 								"v1",
 								"product",
-								"67aeb90dfdfa6e832fd7f123"
+								"67b56052c735af2aca128d5c"
 							]
 						}
 					},
@@ -838,7 +864,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3700/v1/product/67af48a733de8e3c993d6c16",
+							"raw": "http://localhost:3700/v1/product/67aeb90dfdfa6e832fd7f123",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -847,7 +873,271 @@
 							"path": [
 								"v1",
 								"product",
-								"67af48a733de8e3c993d6c16"
+								"67aeb90dfdfa6e832fd7f123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTopProducts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3700/v1/product/topProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"product",
+								"topProduct"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carrito",
+			"item": [
+				{
+					"name": "AddProductCarrito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "productId",
+									"value": "67ad69b22e9adbe166fa23a2",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/carrito/addCarrito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"carrito",
+								"addCarrito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyCarrito",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/carrito/getCarrito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"carrito",
+								"getCarrito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProductCarrito",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "productId",
+									"value": "67b56052c735af2aca128d5c",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/carrito/deleteProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"carrito",
+								"deleteProduct"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Facture",
+			"item": [
+				{
+					"name": "AddFacture",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "67c2814b30fc4455ef14cac2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/facture/addFacture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"facture",
+								"addFacture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateFacture",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "PAID",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/facture/67c3daec4d2f92747172d04b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"facture",
+								"67c3daec4d2f92747172d04b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserFacture",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "67c2814b30fc4455ef14cac2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/facture/getUserFacture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"facture",
+								"getUserFacture"
 							]
 						}
 					},
