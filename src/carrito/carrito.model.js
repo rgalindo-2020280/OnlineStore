@@ -43,17 +43,4 @@ carritoSchema.pre('save', function (next) {
     next()
 })
 
-carritoSchema.methods.completePurchase = async function() {
-    const facture = new Facture({
-        userId: this.userId,
-        products: this.products,
-        totalAmount: this.totalAmount
-    })
-    await facture.save()
-    this.products = []
-    this.totalAmount = 0
-    await this.save()  
-    return facture
-}
-
 export default model('Carrito', carritoSchema)
