@@ -13,7 +13,7 @@ import {
 } from './user.controller.js'
 import { validateJwt} from '../../middlewares/validate.jwt.js'
 import { isAdmin, isClient } from '../../middlewares/validate.jwt.js'
-import { updateUserValidator, updatePasswordValidator } from '../../helpers/validator.js'
+import { updateUserValidator, updatePasswordValidator, addUserValidator } from '../../helpers/validator.js'
 
 const api = Router()
 
@@ -21,6 +21,7 @@ api.post(
     "/addAdmin",
     [validateJwt],
     [isAdmin],
+    [addUserValidator],
     addUser
 )
 
