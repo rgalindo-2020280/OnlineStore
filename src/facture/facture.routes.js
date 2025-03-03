@@ -8,7 +8,7 @@ const api = Router()
 api.post(
     '/addFacture',
     [validateJwt],
-    [isAdmin],
+    [isClient],
     addFacture
 )
 
