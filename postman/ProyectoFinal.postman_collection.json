@@ -905,6 +905,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetProductByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Pollo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3700/v1/product/getByName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3700",
+							"path": [
+								"v1",
+								"product",
+								"getByName"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1042,13 +1082,7 @@
 						],
 						"body": {
 							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "userId",
-									"value": "67c2814b30fc4455ef14cac2",
-									"type": "text"
-								}
-							]
+							"urlencoded": []
 						},
 						"url": {
 							"raw": "http://localhost:3700/v1/facture/addFacture",
@@ -1088,7 +1122,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3700/v1/facture/67c3daec4d2f92747172d04b",
+							"raw": "http://localhost:3700/v1/facture/67c65e08224baf4da52f91cb",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1097,7 +1131,7 @@
 							"path": [
 								"v1",
 								"facture",
-								"67c3daec4d2f92747172d04b"
+								"67c65e08224baf4da52f91cb"
 							]
 						}
 					},
