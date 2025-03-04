@@ -28,7 +28,7 @@ const factureSchema = new Schema({
         },
         status: {
             type: String,
-            enum: ['PENDING', 'PAID', 'CANCELLED'],
+            enum: ['PENDING', 'PAID', 'CANCELED'],
             default: 'PENDING'
         },
         createdAt: {

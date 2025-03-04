@@ -61,12 +61,13 @@ export const updateFacture = async (req, res) => {
         const { id } = req.params
         const { status } = req.body
 
-        if (status !== 'PAID') {
+        if (status !== 'PAID' && status !== 'CANCELED') {
             return res.status(400).send({
                 success: false,
-                message: 'Only status "PAID" can update the stock'
+                message: 'Only status "PAID" or "CANCELED" can update the facture'
             })
         }
+
         const facture = await Facture.findById(id)
         if (!facture) {
             return res.status(404).send({
@@ -74,28 +75,34 @@ export const updateFacture = async (req, res) => {
                 message: 'Facture not found'
             })
         }
-        if (facture.status === 'PAID') {
+
+        if (facture.status === status) {
             return res.status(400).send({
                 success: false,
-                message: 'Facture is already marked as PAID'
+                message: `Facture is already marked as ${status}`
             })
         }
-        facture.status = status
-        for (const item of facture.products) {
-            const product = await Product.findById(item.productId)
-            if (product.stock < item.quantity) {
-                return res.status(400).send({
-                    success: false,
-                    message: `Not enough stock for product: ${product.name}. Available stock: ${product.stock}`
-                })
+
+        if (status === 'PAID') {
+            for (const item of facture.products) {
+                const product = await Product.findById(item.productId)
+                if (product.stock < item.quantity) {
+                    return res.status(400).send({
+                        success: false,
+                        message: `Not enough stock for product: ${product.name}. Available stock: ${product.stock}`
+                    })
+                }
+                product.stock -= item.quantity
+                await product.save()
             }
-            product.stock -= item.quantity
-            await product.save()
+        } else if (status === 'CANCELED') {
         }
+
+        facture.status = status
         await facture.save()
         res.send({
             success: true,
-            message: 'Facture updated successfully',
+            message: `Facture updated successfully to status ${status}`,
             facture
         })
     } catch (error) {
@@ -106,6 +113,7 @@ export const updateFacture = async (req, res) => {
         })
     }
 }
+
 
 export const getUserFactures = async (req, res) => {
     try {

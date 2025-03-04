@@ -1,5 +1,9 @@
 import { Router } from 'express'
-import { addFacture, getUserFactures, updateFacture } from './facture.controller.js'
+import { 
+    addFacture, 
+    getUserFactures, 
+    updateFacture, 
+} from './facture.controller.js'
 import { validateJwt } from '../../middlewares/validate.jwt.js'
 import { isClient, isAdmin } from '../../middlewares/validate.jwt.js'
 

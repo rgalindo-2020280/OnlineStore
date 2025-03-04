@@ -30,7 +30,6 @@ api.put(
 api.get(
     '/',
     [validateJwt],
-    [isAdmin],
     getCategory
 )
 

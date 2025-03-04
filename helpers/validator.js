@@ -3,6 +3,7 @@ import { validateErrorWithoutImg } from "./validate.error.js"
 import { existUsername, existEmail, objectIdValid } from "./db.validators.js"
 import Product from '../src/product/product.model.js'
 import User from '../src/user/user.model.js'
+import Carrito from '../src/carrito/carrito.model.js'
 
 export const registerValidator = [
     body('name', 'Name cannot be empty')
